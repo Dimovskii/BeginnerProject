@@ -3,7 +3,27 @@ guid: d1ca2f8b2a2a3984ca9d9860b039c8bd
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Baretta_Body
+    second: {fileID: 2100000, guid: 49953993321ad8645938198daef012c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Baretta_Bullet
+    second: {fileID: 2100000, guid: dd15248506bdac24dae5200f931fdcfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Baretta_Slide
+    second: {fileID: 2100000, guid: 6025d1465e81e5d48b3b921a7079b1ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lower_BodySG
+    second: {fileID: 2100000, guid: 8e5dda8d79ea06f419bbdfc4e714d4fe, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -92,7 +112,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
