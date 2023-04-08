@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf31a8786246bf84698a924f9ac2398f, type: 3}
   m_Name: AKMConfig
   m_EditorClassIdentifier: 
-  Name: 
-  WeaponPrefab: {fileID: 0}
-  BulletType: {fileID: 0}
+  Name: AKM
+  WeaponPrefab: {fileID: 4541144029553166615, guid: ace2ad31ac55d0942a14a565ba97af95, type: 3}
+  BulletType: {fileID: 4158524385015106515, guid: 826462a1b783b4e40a40d56363339d74, type: 3}
   MuzzleFlash: {fileID: 0}
-  BulletSpeed: 0
-  Damage: 0
-  MaxAmmoCount: 0
-  CurrentAmmoCount: 0
-  FireRate: 0
-  ReloadTime: 0
-  IsAutomatic: 0
+  BulletSpeed: 60
+  Damage: 20
+  MaxAmmoCount: 30
+  CurrentAmmoCount: 30
+  FireRate: 0.1
+  ReloadTime: 2
+  IsAutomatic: 1
