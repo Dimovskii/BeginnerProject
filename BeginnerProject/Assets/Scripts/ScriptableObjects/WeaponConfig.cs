@@ -5,8 +5,7 @@ public class WeaponConfig : ScriptableObject
 {
     public string Name;
     public GameObject WeaponPrefab;
-    public GameObject BulletType;
-    public GameObject MuzzleFlash;
+    public GameObject BulletPrefab;
     public int BulletSpeed;
     public int Damage;
     public int MaxAmmoCount;

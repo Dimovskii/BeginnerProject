@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 public class PlayerShooting : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    [SerializeField] private Transform _barrel;
-    [SerializeField] private Transform _muzzleParent;
-    [SerializeField] private WeaponConfig _weaponConfig;
-    private GameObject _muzzleFlashPrefab;
+    private WeaponManager _weaponManager;
+    private WeaponConfig _weaponConfig;
+    private Transform _barrel;
     private ParticleSystem _muzzleFlash;
     private bool _isShooting = false;
     private bool _isReadyToFire = true;
     private bool _isReloading = false;
-    public event Action OnFire;
 
     private void Awake() 
     {
@@ -24,10 +22,19 @@ public class PlayerShooting : MonoBehaviour
         _playerInput.CharacterControls.Reload.performed += Reloading;
     }
 
-    private void Start() 
+    public void SetWeaponConfig(WeaponConfig weaponConfig)
     {
-        _muzzleFlashPrefab = _weaponConfig.MuzzleFlash;
-        _muzzleFlash = _muzzleFlashPrefab.GetComponent<ParticleSystem>();  
+        _weaponConfig = weaponConfig;
+    }
+
+    public void SetBarrel(Transform barrel)
+    {   
+        _barrel = barrel;
+    }
+    
+    public void SetMuzzleFlash(ParticleSystem muzzleFlash)
+    {
+        _muzzleFlash = muzzleFlash;
     }
 
     private void OpenFire(InputAction.CallbackContext context)
@@ -40,10 +47,9 @@ public class PlayerShooting : MonoBehaviour
     {
         if(_isShooting && _isReadyToFire && !_isReloading && _weaponConfig.CurrentAmmoCount > 0)
         {
-           
-            // _muzzleFlash.Play();
+            _muzzleFlash.Play();
             
-            _weaponConfig.CurrentAmmoCount --;
+            _weaponConfig.CurrentAmmoCount--;
             Debug.Log(_weaponConfig.CurrentAmmoCount);
 
             if(_weaponConfig.CurrentAmmoCount > 0)
@@ -51,13 +57,12 @@ public class PlayerShooting : MonoBehaviour
                 SetFireRate();
             }
             CreateBullet();
-            OnFire?.Invoke();
         } 
     }
 
     private void CreateBullet()
     {
-        var bullet = Instantiate(_weaponConfig.BulletType, _barrel.position, _barrel.rotation);
+        var bullet = Instantiate(_weaponConfig.BulletPrefab, _barrel.position, _barrel.rotation);
         var bulletRigidbody = bullet.GetComponent<Rigidbody>();
         bulletRigidbody.AddForce(_barrel.forward * _weaponConfig.BulletSpeed, ForceMode.Impulse);
     }
@@ -76,12 +81,6 @@ public class PlayerShooting : MonoBehaviour
         Shooting();
     }
 
-    private void SetMuzzleFlash()
-    {
-        Debug.Log("Flash");
-        _muzzleFlash.Play();
-    }
-
     private async void Reloading(InputAction.CallbackContext context)
     {
         Debug.Log("Reloading...");
@@ -96,12 +95,10 @@ public class PlayerShooting : MonoBehaviour
     private void OnEnable() 
     {
         _playerInput.Enable();
-        OnFire += SetMuzzleFlash;
     }
 
     private void OnDisable() 
     {
         _playerInput.Disable();
-        OnFire -= SetMuzzleFlash;
     }
 }
