@@ -10,11 +10,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private int _maxHealthAmount = 100;
     public event Action<int> OnHealed;
     public event Action OnDead;
+    public event Action<int> OnHealthChanged;
+    public event Action<int> OnHelthSystemAwaked;
     [SerializeField] GameOverScreen _gamerOverScreen;
+    [SerializeField] HealthBar _helthBar;
     
     private void Awake() 
     {
         _playerHealth = new Health(_startHealthAmount,_maxHealthAmount);
+        OnHelthSystemAwaked?.Invoke(_maxHealthAmount);
     }
 
     private void Update()   
@@ -28,20 +32,24 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (Input.GetKeyDown(KeyCode.H))
         {   
             OnHealed?.Invoke(_healAmount);
-            Debug.Log(_playerHealth.CurrentHealth);
         }
     }
 
     private void Heal(int healing)
     {
         _playerHealth.Heal(healing);
+        OnHealthChanged?.Invoke(healing);
     }
 
     public void TakeDamage(int damage)
     {
         Debug.Log(_playerHealth.CurrentHealth);
         if(_playerHealth.CurrentHealth > 0)
+        {
             _playerHealth.Damage(damage);
+            var healthValue = _playerHealth.CurrentHealth - damage;
+            OnHealthChanged?.Invoke(healthValue);
+        }
         else
             OnDead?.Invoke();
 
@@ -51,10 +59,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         OnHealed += Heal;
         OnDead += _gamerOverScreen.ShowGameOverScreen;
+        OnHealthChanged += _helthBar.SetHelthAmount;
+        OnHelthSystemAwaked += _helthBar.SetMaxHealth;
     }
     private void OnDisable() 
     {
         OnHealed -= Heal;
         OnDead -= _gamerOverScreen.ShowGameOverScreen;
+        OnHealthChanged -= _helthBar.SetHelthAmount;
+        OnHelthSystemAwaked -= _helthBar.SetMaxHealth;
     }
 }
