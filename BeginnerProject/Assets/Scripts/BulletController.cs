@@ -4,7 +4,6 @@ public class BulletController : MonoBehaviour
 {
     private float _lifeTime = 3f;
     private int _damageCount = 10;
-    private 
     WeaponManager _weaponManager;
     
     private void Awake() 
@@ -19,9 +18,6 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) 
     {
-        if(collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth enemy))
-        {
-            enemy.TakeDamage(_damageCount);
-        }
+        collision.collider.GetComponent<EnemyHealth>().TakeDamage(_damageCount);
     }
 }
