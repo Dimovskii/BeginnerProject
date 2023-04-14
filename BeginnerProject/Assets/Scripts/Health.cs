@@ -11,17 +11,20 @@ public class Health
 
     public void Damage(int damageCount)
     {
-        if(CurrentHealth > 0)
+        {
             CurrentHealth -= damageCount;
-        
+        }
     }
 
     public void Heal(int healCount)
     {
         if(CurrentHealth < MaxHealth)
+        {
             CurrentHealth += healCount;
-        
-        if(CurrentHealth > MaxHealth)
+        }
+        else if(CurrentHealth >= MaxHealth)
+        {
             CurrentHealth = MaxHealth;
+        }    
     }
 }
