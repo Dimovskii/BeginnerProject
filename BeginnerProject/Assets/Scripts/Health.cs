@@ -1,30 +1,30 @@
-public class Health
+using UnityEngine;
+
+public class Health : MonoBehaviour, IDamageable
 {
-    public int MaxHealth { get; private set; }
-    public int CurrentHealth { get; private set; }
+    private HealthSystem _health;
+    private int _startHealthAmount = 100;
+    private int _maxHealthAmount = 100;
+
+    private void Awake() 
+    {
+        _health = new HealthSystem(_startHealthAmount, _maxHealthAmount);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if(_health.CurrentHealth > 0)
+        {
+            _health.Damage(damage);
+        }
+        else if(_health.CurrentHealth <= 0)
+        {
+            Death();
+        }
+    }
    
-    public Health(int startHealth, int maxHealth)
+    private void Death()
     {
-        CurrentHealth = startHealth;
-        MaxHealth = maxHealth;
-    }
-
-    public void Damage(int damageCount)
-    {
-        {
-            CurrentHealth -= damageCount;
-        }
-    }
-
-    public void Heal(int healCount)
-    {
-        if(CurrentHealth < MaxHealth)
-        {
-            CurrentHealth += healCount;
-        }
-        else if(CurrentHealth >= MaxHealth)
-        {
-            CurrentHealth = MaxHealth;
-        }    
+        Destroy(gameObject);
     }
 }
