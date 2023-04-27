@@ -13,6 +13,7 @@ public class PlayerShooting : MonoBehaviour
     private bool _isShooting = false;
     private bool _isReadyToFire = true;
     private bool _isReloading = false;
+    public event Action<int,int> OnAmmoAmountChanged;
 
     private void Awake() 
     {
@@ -25,6 +26,7 @@ public class PlayerShooting : MonoBehaviour
     public void SetWeaponConfig(WeaponConfig weaponConfig)
     {
         _weaponConfig = weaponConfig;
+        OnAmmoAmountChanged?.Invoke(_weaponConfig.CurrentAmmoCount, _weaponConfig.MaxAmmoCount);
     }
 
     public void SetBarrel(Transform barrel)
@@ -50,7 +52,7 @@ public class PlayerShooting : MonoBehaviour
             _muzzleFlash.Play();
             
             _weaponConfig.CurrentAmmoCount--;
-            Debug.Log(_weaponConfig.CurrentAmmoCount);
+            OnAmmoAmountChanged?.Invoke(_weaponConfig.CurrentAmmoCount, _weaponConfig.MaxAmmoCount);
 
             if(_weaponConfig.CurrentAmmoCount > 0)
             {
@@ -83,13 +85,10 @@ public class PlayerShooting : MonoBehaviour
 
     private async void Reloading(InputAction.CallbackContext context)
     {
-        Debug.Log("Reloading...");
-
         await Task.Delay(TimeSpan.FromSeconds(_weaponConfig.ReloadTime));
         _weaponConfig.CurrentAmmoCount = _weaponConfig.MaxAmmoCount;
 
         _isReloading = false;
-        Debug.Log("RedyToFire!");
     }
 
     private void OnEnable() 

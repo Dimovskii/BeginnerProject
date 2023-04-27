@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WeaponManager : MonoBehaviour
-{ [SerializeField] private List<Transform> _weaponsTransform;
+{ 
+    [SerializeField] private List<Transform> _weaponsTransform;
     [SerializeField] private List<WeaponConfig> _weaponsConfig;
     [SerializeField] private List<Transform> _barrels;
     [SerializeField] private List<ParticleSystem> _muzzleFlash;
@@ -16,6 +19,7 @@ public class WeaponManager : MonoBehaviour
     private int _idCurrentWeaponConfig;
     private int _idCurrentBarrel;
     private int _idCurrentMuzzleFlash;
+    public event Action<int> OnWeaponChanged;
 
     private void Awake() 
     {
@@ -28,7 +32,6 @@ public class WeaponManager : MonoBehaviour
         SetWeaponConfig();
         SetBarrel();
         SetMuzzleFlash();
-
     }
 
     private void Switch()
@@ -65,6 +68,7 @@ public class WeaponManager : MonoBehaviour
             if (i == _idCurrentWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                OnWeaponChanged?.Invoke(_idCurrentWeapon);
             }
             else
                 weapon.gameObject.SetActive(false);
