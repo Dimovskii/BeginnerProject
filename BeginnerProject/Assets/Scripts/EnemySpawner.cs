@@ -3,16 +3,22 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    private GameObject _enemyPrefab;
     private Vector3 _spawnPosition;
     private int _enemyCount;
     private float _timeToSpawn = 2f;
     private float _valueX = 135f;
     private float _valueZ = 135f;
 
+    public void Init(GameObject enemy)
+    {
+        _enemyPrefab = enemy;
+        StartCoroutine(EnemyDrop());
+    }
+
     private void Start() 
     {
-        StartCoroutine(EnemyDrop());    
+            
     }
     
     IEnumerator EnemyDrop()
