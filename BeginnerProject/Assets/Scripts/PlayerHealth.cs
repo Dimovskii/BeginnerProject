@@ -6,6 +6,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private HealthSystem _playerHealth;
     private int _startHealthAmount = 100;
     private int _maxHealthAmount = 100;
+    public event Action<int> OnHealthChanged;
+    public event Action OnDead;
     
     private void Awake() 
     {
@@ -22,15 +24,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if(_playerHealth.CurrentHealth > 0)
         {
             _playerHealth.Damage(damage);
+            OnHealthChanged?.Invoke(_playerHealth.CurrentHealth);
         }
         else if (_playerHealth.CurrentHealth == 0)
         {
-            Dead();
-        }
-    }
+            OnDead?.Invoke();
 
-    private void Dead()
-    {
-        throw new NotImplementedException();
+        }
     }
 }
