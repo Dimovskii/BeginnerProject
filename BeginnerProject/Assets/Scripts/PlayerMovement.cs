@@ -1,38 +1,33 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour 
 {
     [SerializeField] private float _moveSpeed = 40f;
     [SerializeField] private float _rotationSpeed = 10f;
+    private InputHandler _inputHandler;
     private Camera _camera;
-    private PlayerInput _playerInput;
 
     private void Awake()
     {
-        _playerInput = new PlayerInput();
+        _inputHandler = GetComponent<InputHandler>();
         _camera = Camera.main;
     }
-   
-    private void FixedUpdate()
+
+    private void OnEnable()
     {
-        Move();
-        Rotation();
+        _inputHandler.OnPlayerMoved += Move;
+        _inputHandler.OnPlayerRotated += Rotation;
     }
 
-
-    private void Move()
+    private void Move(Vector2 value)
     {
-        var direction = _playerInput.CharacterControls.Movement.ReadValue<Vector2>();
-        var scaledMoveSpeed = _moveSpeed * Time.deltaTime;
-
-        var moveDirecion = new Vector3(direction.x, 0, direction.y);
+        var moveDirecion = new Vector3(value.x, 0, value.y);
         transform.position += moveDirecion * _moveSpeed * Time.deltaTime;
     }
 
-    private void Rotation()
+    private void Rotation(Vector2 value)
     {
-        var mouseScreenPosition = _playerInput.CharacterControls.Aiming.ReadValue<Vector2>();
-        Ray ray = _camera.ScreenPointToRay(mouseScreenPosition);
+        Ray ray = _camera.ScreenPointToRay(value);
         Plane plane = new Plane(Vector3.up, transform.position);
 
         if (plane.Raycast(ray, out float distance))
@@ -45,13 +40,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-     private void OnEnable()
-    {
-        _playerInput.Enable();
-    }
-
     private void OnDisable()
     {
-        _playerInput.Disable();
+        _inputHandler.OnPlayerMoved -= Move;
+        _inputHandler.OnPlayerRotated -= Rotation;
     }
 }
