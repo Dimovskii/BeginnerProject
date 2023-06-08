@@ -1,19 +1,21 @@
+using Player;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour, IRotaion
 {
     [SerializeField] private float _moveSpeed = 40f;
     [SerializeField] private float _rotationSpeed = 10f;
     private InputHandler _inputHandler;
     private Camera _camera;
 
-    private void Awake()
+    public void Init(Camera camera)
     {
+        _camera = camera;
         _inputHandler = GetComponent<InputHandler>();
-        _camera = Camera.main;
+        Discribe();
     }
 
-    private void OnEnable()
+    private void Discribe()
     {
         _inputHandler.OnPlayerMoved += Move;
         _inputHandler.OnPlayerRotated += Rotation;
