@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(EScenes.Game.ToString());
+        SceneManager.LoadSceneAsync(EnumScenes.GameSession.ToString());
     }
 
     private void SettingsGame()
