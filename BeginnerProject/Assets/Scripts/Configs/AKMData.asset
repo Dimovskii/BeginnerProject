@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6500973242ca9264883d1f01f2a8d8cb, type: 3}
+  m_Name: AKMData
+  m_EditorClassIdentifier: 
+  _name: AKM
+  _weaponPrefab: {fileID: 4541144029553166615, guid: ace2ad31ac55d0942a14a565ba97af95, type: 3}
+  _bulletPrefab: {fileID: 4158524385015106515, guid: 826462a1b783b4e40a40d56363339d74, type: 3}
+  _bulletSpeed: 100
+  _damage: 20
+  _maxAmmoCount: 30
+  _currentAmmoCount: 3
+  _fireRate: 0.1
+  _reloadTime: 1.8
+  _isAutomatic: 1
