@@ -52,9 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12590ae895170204e87b7d7bdf7e4a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hud: {fileID: 2614945295610594956, guid: b5eef81ab5dd2f646be6154fc86f7680, type: 3}
-  _pauseMenu: {fileID: 390679669522425790, guid: 72f4bfe329a2ab243b872b742a2311a4, type: 3}
-  _gameOverScren: {fileID: 2467527623120874679, guid: 9df13a98c009cb5479137f019e4eccca, type: 3}
+  _hudPrefab: {fileID: 2614945295610594956, guid: b5eef81ab5dd2f646be6154fc86f7680, type: 3}
+  _pauseMenuPrefab: {fileID: 390679669522425790, guid: 72f4bfe329a2ab243b872b742a2311a4, type: 3}
+  _gameOverScrenPrefab: {fileID: 2467527623120874679, guid: 9df13a98c009cb5479137f019e4eccca, type: 3}
 --- !u!223 &1702712588264862204
 Canvas:
   m_ObjectHideFlags: 0
