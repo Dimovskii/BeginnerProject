@@ -11,7 +11,7 @@ public class PrefabFactory : MonoBehaviour
     [SerializeField] private GameObject _uiRoot;
 
     private Dictionary<string, GameObject> _gameObjects;
-    
+
     private void Awake()
     {
         _gameObjects = new Dictionary<string, GameObject>
@@ -34,6 +34,19 @@ public class PrefabFactory : MonoBehaviour
         else
         {
             return Instantiate(value);
+        }
+    }
+
+    public GameObject Create(string key, Vector3 position)
+    {
+        if (!_gameObjects.TryGetValue(key, out GameObject value))
+        {
+            Debug.LogError($"Prefab with key {key} not found.");
+            return null;
+        }
+        else
+        {
+            return Instantiate(value, position, Quaternion.identity);
         }
     }
 }
