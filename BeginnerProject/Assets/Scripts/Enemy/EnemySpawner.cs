@@ -1,24 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using Factory;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private GameObject _enemyPrefab;
+    private PrefabFactory _factory;
     private Vector3 _spawnPosition;
     private int _enemyCount;
     private float _timeToSpawn = 2f;
     private float _valueX = 135f;
     private float _valueZ = 135f;
 
-    public void Init(GameObject enemy)
+    public void Init(PrefabFactory factory)
     {
-        _enemyPrefab = enemy;
+        _factory = factory;
         StartCoroutine(EnemyDrop());
-    }
-
-    private void Start() 
-    {
-            
     }
     
     IEnumerator EnemyDrop()
@@ -39,6 +35,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Create()
     {
-        var enemy = Instantiate(_enemyPrefab, _spawnPosition, Quaternion.identity);
+        _factory.Create(GameConstants.Enemy, _spawnPosition);
+
     }
 }
