@@ -1,22 +1,33 @@
 using UnityEngine;
 using System;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IPlayerHealth, IDamageable
 {
     private HealthSystem _playerHealth;
     private int _startHealthAmount = 100;
     private int _maxHealthAmount = 100;
+    private IInput _input;
+    private int _healAmount = 20;
+
     public event Action<int> OnHealthChanged;
     public event Action OnDead;
     
-    private void Awake() 
+    public void Init(IInput input) 
     {
+        _input = input;
         _playerHealth = new HealthSystem(_startHealthAmount,_maxHealthAmount);
+        Sibscribe();
     }
 
-    private void Heal(int healing)
+    private void Sibscribe()
     {
-        _playerHealth.Heal(healing);
+        _input.OnHealed += Heal;
+    }
+
+    private void Heal()
+    {
+        _playerHealth.Heal(_healAmount);
+        OnHealthChanged?.Invoke(_playerHealth.CurrentHealth);
     }
 
     public void TakeDamage(int damage)
