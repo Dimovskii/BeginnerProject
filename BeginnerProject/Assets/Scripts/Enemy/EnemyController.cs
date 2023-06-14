@@ -1,25 +1,27 @@
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyController : MonoBehaviour
 {
-    private GameObject _player;
     private NavMeshAgent _agent;
-    private const string _tagPlayer = "Player"; 
+    public Transform Target { get; set; }
 
-   private void Awake() 
-   {
+    private void Awake()
+    {
         _agent = GetComponent<NavMeshAgent>();
-        _player = GameObject.FindGameObjectWithTag(_tagPlayer);
-   }
+    }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         ChasePlayer();
     }
 
    private void ChasePlayer()
    {
-      _agent.SetDestination(_player.transform.position);
-   }
+      if(Target != null)
+        {
+            _agent.SetDestination(Target.transform.position);
+        }
+    }
 }
