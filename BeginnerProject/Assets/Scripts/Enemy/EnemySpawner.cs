@@ -6,14 +6,16 @@ public class EnemySpawner : MonoBehaviour
 {
     private PrefabFactory _factory;
     private Vector3 _spawnPosition;
+    private Transform _target;
     private int _enemyCount;
     private float _timeToSpawn = 2f;
     private float _valueX = 135f;
     private float _valueZ = 135f;
 
-    public void Init(PrefabFactory factory)
+    public void Init(PrefabFactory factory, Transform target)
     {
         _factory = factory;
+        _target = target;
         StartCoroutine(EnemyDrop());
     }
     
@@ -35,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Create()
     {
-        _factory.Create(GameConstants.Enemy, _spawnPosition);
-
+        var enemyPrefab = _factory.Create(GameConstants.Enemy, _spawnPosition);
+        enemyPrefab.GetComponent<EnemyController>().Target = _target;
     }
 }

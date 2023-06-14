@@ -1,25 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Weapon
 {
-    public class Reload : MonoBehaviour
+    public class Reload : MonoBehaviour, IReload
     {
-        private InputHandler _inputHandler;
-        private WeaponSwitching _weaponSwitching;
+        private IInput _input;
+        private ISwitcher _weaponSwitcher;
         private WeaponData _weaponData;
         private bool _isReloading = false;
-
-        private void Awake()
+        public event Action<int, int> OnReloaded;
+        public void Init(IInput input, ISwitcher weaponSwitcher)
         {
-            _inputHandler = GetComponent<InputHandler>();
-            _weaponSwitching = GetComponent<WeaponSwitching>();
+            _input = input;
+            _weaponSwitcher = weaponSwitcher;
+            Subscribe();
         }
 
-        private void OnEnable()
+        private void Subscribe()
         {
-            _weaponSwitching.OnWeaponDataChanged += GetWeaponData;
-            _inputHandler.OnReloaded += StartReloading;
+            _weaponSwitcher.OnGunChanged += GetWeaponData;
+            _input.OnReloaded += StartReloading;
         }
 
         private void GetWeaponData(WeaponData data)
@@ -40,13 +42,14 @@ namespace Assets.Scripts
                 yield return new WaitForSeconds(_weaponData.ReloadTime);
                 _weaponData.CurrentAmmoCount = _weaponData.MaxAmmoCount;
                 _isReloading = false;
+                OnReloaded?.Invoke(_weaponData.CurrentAmmoCount, _weaponData.MaxAmmoCount);
             }
         }
 
         private void OnDisable()
         {
-            _weaponSwitching.OnWeaponDataChanged -= GetWeaponData;
-            _inputHandler.OnReloaded -= StartReloading;
+            _weaponSwitcher.OnGunChanged -= GetWeaponData;
+            _input.OnReloaded -= StartReloading;
         }
     }
 }

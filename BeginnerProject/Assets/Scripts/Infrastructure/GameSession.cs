@@ -22,7 +22,7 @@ namespace Infrastructure
             
             var cameraPrefab = _factory.Create(GameConstants.Camera);
             var camera = cameraPrefab.GetComponent<Camera>();
-            cameraPrefab.GetComponent<CameraFollower>().PlayerTransform = playerTransform;
+            cameraPrefab.GetComponent<CameraFollower>().Player = playerTransform;
 
             _player = playerPrefab.GetComponent<Player>();
             _player.PlayerMovement.Camera = camera;

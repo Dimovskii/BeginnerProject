@@ -1,26 +1,29 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class Shooting : MonoBehaviour, IShoot
 {
     private WeaponData _weaponData;
     private Transform _barrel;
-    private InputHandler _inputHandler;
-    private WeaponSwitching _weaponSwitching;
     private bool _isFiring = false;
+    private ISwitcher _weaponSwitcher;
+    private IInput _input;
+    public event Action<int, int> OnShootHappened;
 
-    private void Awake()
+    public void Init(IInput input, ISwitcher weaponSwitcher)
     {
-        _inputHandler = GetComponent<InputHandler>();
-        _weaponSwitching = GetComponent<WeaponSwitching>();
+        _input = input;
+        _weaponSwitcher = weaponSwitcher;
+        Discribe();
     }
 
-    private void OnEnable()
+    private void Discribe()
     {
-        _inputHandler.OnFireOpened += StartFiring;
-        _inputHandler.OnFireStopped += StopFire;
-        _weaponSwitching.OnWeaponDataChanged += GetWeaponData;
-        _weaponSwitching.OnWeaponBarrelChanged += GetBarrelTransform;
+        _weaponSwitcher.OnBarrelChanged += GetBarrelTransform;
+        _weaponSwitcher.OnGunChanged += GetWeaponData;
+        _input.OnFireOpened += StartFiring;
+        _input.OnFireStopped += StopFire;
     }
 
     private void GetWeaponData(WeaponData data)
@@ -58,12 +61,13 @@ public class Shooting : MonoBehaviour
     {
         var bullet = Instantiate(_weaponData.BulletPrefab, _barrel.position, _barrel.rotation);
         bullet.GetComponent<BulletController>().Init(_weaponData.BulletSpeed, _weaponData.Damage);
+        OnShootHappened?.Invoke(_weaponData.CurrentAmmoCount, _weaponData.MaxAmmoCount);
     }
     
     private void OnDisable()
     {
-        _inputHandler.OnFireOpened -= StartFiring;
-        _inputHandler.OnFireStopped -= StopFire;
-        _weaponSwitching.OnWeaponDataChanged -= GetWeaponData;
+        _input.OnFireOpened -= StartFiring;
+        _input.OnFireStopped -= StopFire;
+        _weaponSwitcher.OnGunChanged -= GetWeaponData;
     }
 }

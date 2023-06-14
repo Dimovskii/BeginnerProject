@@ -1,4 +1,4 @@
-public enum WeaponsType
+public enum EnumWeaponsType
 {
     Pistol,
     Rifle,

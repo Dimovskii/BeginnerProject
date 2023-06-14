@@ -214,6 +214,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI1"",
+            ""id"": ""c152f8fd-1740-4d9b-bcba-c74c9d502e45"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e1a9fee-3334-466e-afaa-4a14cdeef5d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b838f14e-c3db-4dab-930d-23ee4cce5897"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -233,6 +261,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_SetPistol = m_CharacterControls.FindAction("SetPistol", throwIfNotFound: true);
         m_CharacterControls_SetRifle = m_CharacterControls.FindAction("SetRifle", throwIfNotFound: true);
         m_CharacterControls_Heal = m_CharacterControls.FindAction("Heal", throwIfNotFound: true);
+        // UI1
+        m_UI1 = asset.FindActionMap("UI1", throwIfNotFound: true);
+        m_UI1_Pause = m_UI1.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -384,6 +415,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public CharacterControlsActions @CharacterControls => new CharacterControlsActions(this);
+
+    // UI1
+    private readonly InputActionMap m_UI1;
+    private List<IUI1Actions> m_UI1ActionsCallbackInterfaces = new List<IUI1Actions>();
+    private readonly InputAction m_UI1_Pause;
+    public struct UI1Actions
+    {
+        private @PlayerInput m_Wrapper;
+        public UI1Actions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_UI1_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_UI1; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UI1Actions set) { return set.Get(); }
+        public void AddCallbacks(IUI1Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_UI1ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UI1ActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IUI1Actions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IUI1Actions instance)
+        {
+            if (m_Wrapper.m_UI1ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUI1Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_UI1ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UI1ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UI1Actions @UI1 => new UI1Actions(this);
     private int m_KeyboardandmouseSchemeIndex = -1;
     public InputControlScheme KeyboardandmouseScheme
     {
@@ -402,5 +479,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSetPistol(InputAction.CallbackContext context);
         void OnSetRifle(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
+    }
+    public interface IUI1Actions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }
