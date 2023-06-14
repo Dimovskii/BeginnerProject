@@ -1,26 +1,37 @@
 using Factory;
+using Infrastructure;
 using UnityEngine;
 
-public class GameSession : MonoBehaviour
+namespace Infrastructure
 {
-    [SerializeField] private PrefabFactory _factory;
-
-    private void Start()
+    public class GameSession : MonoBehaviour
     {
-        CreateGameObjects();
-    }
+        [SerializeField] private PrefabFactory _factory;
+        private Player _player;
 
-    private void CreateGameObjects()
-    {
-        _factory.Create(GameConstants.Ground);
-        _factory.Create(GameConstants.Player);
-        _factory.Create(GameConstants.Camera);
-        //var rotation = _player.GetRotator();
-        //rotation.Init(_cameraPrefab.GetComponent<Camera>());
-        //_factory.Create(GameConstants.UIRoot);
+        private void Awake()
+        {
+            CreateGameObjects();
+        }
 
-        //var playerTransform = _playerPrefab.transform;
-        //_cameraPrefab.GetComponent<CameraFollower>().PlayerTransform = playerTransform;
-        //_groundPrefab.GetComponent<EnemySpawner>().Init(_factory, playerTransform);
+        private void CreateGameObjects()
+        {
+            var groundPrefab = _factory.Create(GameConstants.Ground);
+            var playerPrefab = _factory.Create(GameConstants.Player);
+            var playerTransform = playerPrefab.transform;
+            
+            var cameraPrefab = _factory.Create(GameConstants.Camera);
+            var camera = cameraPrefab.GetComponent<Camera>();
+            cameraPrefab.GetComponent<CameraFollower>().PlayerTransform = playerTransform;
+
+            _player = playerPrefab.GetComponent<Player>();
+            _player.PlayerMovement.Camera = camera;
+
+            var uiRootPrefab = _factory.Create(GameConstants.UIRoot);
+            var uiRoot = uiRootPrefab.GetComponent<UIRoot>();
+            uiRoot.Init(_player.PlayerHealth, _player.Input, _player.Shooting, _player.Reload, _player.WeaponSwitcher);
+
+            groundPrefab.GetComponent<EnemySpawner>().Init(_factory, playerTransform);
+        }
     }
 }
