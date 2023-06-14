@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 4963793810792013159}
   - component: {fileID: 4963793810792013158}
   - component: {fileID: 4963793810792013157}
-  - component: {fileID: 4963793810792013164}
   - component: {fileID: 4963793810792013166}
-  - component: {fileID: 4963793810792013165}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -115,22 +113,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4963793810792013164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963793810792013156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fbd6939cd379514496bd25787a2bb98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 2211648147857617243, guid: 4b3f645b48db1394c9db39f1c62ce0aa, type: 3}
-  _camera: {fileID: 2118593861979549263, guid: 2524608fb63ebca4f83efe1f7ebc0557, type: 3}
-  _enemy: {fileID: 5282789234598839925, guid: 4490d2a5e550de844846448096c13d8e, type: 3}
-  _uiRoot: {fileID: 5266366055226750898, guid: acc9f05d7f4266047a318ab712cce3ee, type: 3}
 --- !u!114 &4963793810792013166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,17 +123,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84ce912d2ce44074f9a2f26e05ff10f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4963793810792013165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963793810792013156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f5c13809ffef94e93f3733f817c02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

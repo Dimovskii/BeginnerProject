@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 1390332361}
   - component: {fileID: 1390332368}
   - component: {fileID: 1390332369}
+  - component: {fileID: 5855769646223161910}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -524,7 +525,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2211648147857617243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25deb2e920b806742b1aa96f4f7feb8b, type: 3}
+  m_Script: {fileID: 11500000, guid: aae3a6665df449b4d86a9690d910269a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponsTransform:
@@ -560,6 +561,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca17e09677329b243b3aa33f0aa08c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5855769646223161910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211648147857617243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b3756f1595c8648af2aa92a580503d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _input: {fileID: 1390332360}
+  _shooting: {fileID: 1390332368}
+  _weaponSwitcher: {fileID: 1390332361}
+  _playerHealth: {fileID: 4847402895960309030}
+  _playerMovement: {fileID: 1390332359}
+  _reload: {fileID: 1390332369}
 --- !u!1 &2331141102836497923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,6 +2533,10 @@ PrefabInstance:
     - target: {fileID: 4541144029553166615, guid: ace2ad31ac55d0942a14a565ba97af95, type: 3}
       propertyPath: m_Name
       value: AKM
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541144029553166615, guid: ace2ad31ac55d0942a14a565ba97af95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8443750110576866055, guid: ace2ad31ac55d0942a14a565ba97af95, type: 3}
       propertyPath: m_RootOrder

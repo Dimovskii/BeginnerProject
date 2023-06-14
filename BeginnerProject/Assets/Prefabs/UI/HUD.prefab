@@ -161,7 +161,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614945294725159659}
-  - component: {fileID: 2614945294725159636}
   m_Layer: 5
   m_Name: WeaponIcon
   m_TagString: Untagged
@@ -191,14 +190,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2614945294725159636
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945294725159658}
-  m_CullTransparentMesh: 1
 --- !u!1 &2614945294896815399
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614945294907577649}
-  - component: {fileID: 2614945294907577650}
   m_Layer: 5
   m_Name: BulletInfo
   m_TagString: Untagged
@@ -318,14 +308,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2614945294907577650
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945294907577648}
-  m_CullTransparentMesh: 1
 --- !u!1 &2614945295610594956
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +317,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614945295610594957}
+  - component: {fileID: 6650839536292450518}
+  - component: {fileID: 6190361644559790314}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -364,6 +348,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6650839536292450518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614945295610594956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f478c2236e02f2e46b2c0bb112e9ec92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fillerHealthBar: {fileID: 2614945294505806368}
+  _textValueHealhtBar: {fileID: 2614945294896815393}
+--- !u!114 &6190361644559790314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614945295610594956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0195eba9417b11c43b75575ece09bf68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponIcon:
+  - {fileID: 2614945295702196667}
+  - {fileID: 2614945296466238390}
+  _ammoAmount: {fileID: 2614945295732907552}
 --- !u!1 &2614945295702196665
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,8 +619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614945296389162825}
-  - component: {fileID: 2614945296389162826}
-  - component: {fileID: 2614945296389162827}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -637,29 +649,6 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: -75}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2614945296389162826
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945296389162824}
-  m_CullTransparentMesh: 1
---- !u!114 &2614945296389162827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945296389162824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f478c2236e02f2e46b2c0bb112e9ec92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fillerHealthBar: {fileID: 2614945294505806368}
-  _textValueHealhtBar: {fileID: 2614945294896815393}
-  _playerHealth: {fileID: 0}
 --- !u!1 &2614945296443836657
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,8 +658,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614945296443836658}
-  - component: {fileID: 2614945296443836659}
-  - component: {fileID: 2614945296443836668}
   m_Layer: 5
   m_Name: WeaponBar
   m_TagString: Untagged
@@ -700,30 +687,6 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: -150}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2614945296443836659
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945296443836657}
-  m_CullTransparentMesh: 1
---- !u!114 &2614945296443836668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614945296443836657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 804569ef2a544b94b94535dab2a34e76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponIcon:
-  - {fileID: 2614945295702196667}
-  - {fileID: 2614945296466238390}
-  _ammoAmount: {fileID: 2614945295732907552}
 --- !u!1 &2614945296466238388
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2614945296466238389
 RectTransform:
   m_ObjectHideFlags: 0

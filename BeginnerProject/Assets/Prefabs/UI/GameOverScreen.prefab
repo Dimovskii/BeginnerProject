@@ -958,13 +958,14 @@ GameObject:
   - component: {fileID: 4497338015988599975}
   - component: {fileID: 4497338015988599973}
   - component: {fileID: 4497338015988599974}
+  - component: {fileID: 7334628095367422411}
   m_Layer: 0
   m_Name: GameOverScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4497338015988599975
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1025,3 +1026,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7334628095367422411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497338015988599976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5512548b552b2434187751e3fd649a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _restartButton: {fileID: 4497338015413379092}
+  _mainMenuButton: {fileID: 4497338014073537382}
