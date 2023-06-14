@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler : MonoBehaviour 
+public class InputHandler : MonoBehaviour, IInput
 {
     private PlayerInput _playerInput;
     public event Action<int> OnWeaponChanged;
@@ -12,7 +12,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnFireStopped;
     public event Action OnReloaded;
     public event Action OnHealed;
-
+    public event Action OnPausePressed;
 
     private void Awake()
     {
@@ -23,6 +23,12 @@ public class InputHandler : MonoBehaviour
         _playerInput.CharacterControls.Shooting.canceled += StopFire;
         _playerInput.CharacterControls.Reload.performed += Reload;
         _playerInput.CharacterControls.Heal.performed += Heal;
+        _playerInput.UI1.Pause.performed += Pause;
+    }
+
+    private void Pause(InputAction.CallbackContext context)
+    {
+        OnPausePressed?.Invoke();
     }
 
     private void FixedUpdate()
@@ -45,12 +51,12 @@ public class InputHandler : MonoBehaviour
 
     private void SetPistol(InputAction.CallbackContext context)
     {
-        OnWeaponChanged?.Invoke(((int)WeaponsType.Pistol));
+        OnWeaponChanged?.Invoke((int)EnumWeaponsType.Pistol);
     }
 
     private void SetRifle(InputAction.CallbackContext context)
     {
-        OnWeaponChanged?.Invoke(((int)WeaponsType.Rifle));
+        OnWeaponChanged?.Invoke((int)EnumWeaponsType.Rifle);
     }
 
     private void OpenFire(InputAction.CallbackContext context)
