@@ -56,8 +56,35 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Shooting"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""02266d38-4d4a-4079-a937-8e975300cb29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SetPistol"",
+                    ""type"": ""Button"",
+                    ""id"": ""cff6950b-b7e9-42b0-b338-d8a3c46a7ceb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SetRifle"",
+                    ""type"": ""Button"",
+                    ""id"": ""92a73d70-117d-4505-9974-2545af2d29df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cfeeee0-55ab-49c9-abfb-5a61fae3f1b3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -152,6 +179,67 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Shooting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ad4f4e9-385f-4cb4-a596-ebe95371eef7"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SetPistol"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f474df2d-eef4-491e-a304-4161015f18c5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SetRifle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""643c47e0-b7cd-47b2-894f-1bcb930e3aad"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI1"",
+            ""id"": ""c152f8fd-1740-4d9b-bcba-c74c9d502e45"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e1a9fee-3334-466e-afaa-4a14cdeef5d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b838f14e-c3db-4dab-930d-23ee4cce5897"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -170,6 +258,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Aiming = m_CharacterControls.FindAction("Aiming", throwIfNotFound: true);
         m_CharacterControls_Reload = m_CharacterControls.FindAction("Reload", throwIfNotFound: true);
         m_CharacterControls_Shooting = m_CharacterControls.FindAction("Shooting", throwIfNotFound: true);
+        m_CharacterControls_SetPistol = m_CharacterControls.FindAction("SetPistol", throwIfNotFound: true);
+        m_CharacterControls_SetRifle = m_CharacterControls.FindAction("SetRifle", throwIfNotFound: true);
+        m_CharacterControls_Heal = m_CharacterControls.FindAction("Heal", throwIfNotFound: true);
+        // UI1
+        m_UI1 = asset.FindActionMap("UI1", throwIfNotFound: true);
+        m_UI1_Pause = m_UI1.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -235,6 +329,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Aiming;
     private readonly InputAction m_CharacterControls_Reload;
     private readonly InputAction m_CharacterControls_Shooting;
+    private readonly InputAction m_CharacterControls_SetPistol;
+    private readonly InputAction m_CharacterControls_SetRifle;
+    private readonly InputAction m_CharacterControls_Heal;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -243,6 +340,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Aiming => m_Wrapper.m_CharacterControls_Aiming;
         public InputAction @Reload => m_Wrapper.m_CharacterControls_Reload;
         public InputAction @Shooting => m_Wrapper.m_CharacterControls_Shooting;
+        public InputAction @SetPistol => m_Wrapper.m_CharacterControls_SetPistol;
+        public InputAction @SetRifle => m_Wrapper.m_CharacterControls_SetRifle;
+        public InputAction @Heal => m_Wrapper.m_CharacterControls_Heal;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +364,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shooting.started += instance.OnShooting;
             @Shooting.performed += instance.OnShooting;
             @Shooting.canceled += instance.OnShooting;
+            @SetPistol.started += instance.OnSetPistol;
+            @SetPistol.performed += instance.OnSetPistol;
+            @SetPistol.canceled += instance.OnSetPistol;
+            @SetRifle.started += instance.OnSetRifle;
+            @SetRifle.performed += instance.OnSetRifle;
+            @SetRifle.canceled += instance.OnSetRifle;
+            @Heal.started += instance.OnHeal;
+            @Heal.performed += instance.OnHeal;
+            @Heal.canceled += instance.OnHeal;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -280,6 +389,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shooting.started -= instance.OnShooting;
             @Shooting.performed -= instance.OnShooting;
             @Shooting.canceled -= instance.OnShooting;
+            @SetPistol.started -= instance.OnSetPistol;
+            @SetPistol.performed -= instance.OnSetPistol;
+            @SetPistol.canceled -= instance.OnSetPistol;
+            @SetRifle.started -= instance.OnSetRifle;
+            @SetRifle.performed -= instance.OnSetRifle;
+            @SetRifle.canceled -= instance.OnSetRifle;
+            @Heal.started -= instance.OnHeal;
+            @Heal.performed -= instance.OnHeal;
+            @Heal.canceled -= instance.OnHeal;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -297,6 +415,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public CharacterControlsActions @CharacterControls => new CharacterControlsActions(this);
+
+    // UI1
+    private readonly InputActionMap m_UI1;
+    private List<IUI1Actions> m_UI1ActionsCallbackInterfaces = new List<IUI1Actions>();
+    private readonly InputAction m_UI1_Pause;
+    public struct UI1Actions
+    {
+        private @PlayerInput m_Wrapper;
+        public UI1Actions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_UI1_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_UI1; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UI1Actions set) { return set.Get(); }
+        public void AddCallbacks(IUI1Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_UI1ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UI1ActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IUI1Actions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IUI1Actions instance)
+        {
+            if (m_Wrapper.m_UI1ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUI1Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_UI1ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UI1ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UI1Actions @UI1 => new UI1Actions(this);
     private int m_KeyboardandmouseSchemeIndex = -1;
     public InputControlScheme KeyboardandmouseScheme
     {
@@ -312,5 +476,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAiming(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnShooting(InputAction.CallbackContext context);
+        void OnSetPistol(InputAction.CallbackContext context);
+        void OnSetRifle(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
+    }
+    public interface IUI1Actions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }
