@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler : MonoBehaviour, IInput
+public class InputWrapper : MonoBehaviour, IInput
 {
-    private PlayerInput _playerInput;
+    private Input _input;
     public event Action<int> OnWeaponChanged;
     public event Action<Vector2> OnPlayerMoved;
     public event Action<Vector2> OnPlayerRotated;
@@ -16,14 +16,14 @@ public class InputHandler : MonoBehaviour, IInput
 
     private void Awake()
     {
-        _playerInput = new PlayerInput();
-        _playerInput.CharacterControls.SetPistol.performed += SetPistol;
-        _playerInput.CharacterControls.SetRifle.performed += SetRifle;
-        _playerInput.CharacterControls.Shooting.started += OpenFire;
-        _playerInput.CharacterControls.Shooting.canceled += StopFire;
-        _playerInput.CharacterControls.Reload.performed += Reload;
-        _playerInput.CharacterControls.Heal.performed += Heal;
-        _playerInput.UI1.Pause.performed += Pause;
+        _input = new Input();
+        _input.CharacterControls.SetPistol.performed += SetPistol;
+        _input.CharacterControls.SetRifle.performed += SetRifle;
+        _input.CharacterControls.Shooting.started += OpenFire;
+        _input.CharacterControls.Shooting.canceled += StopFire;
+        _input.CharacterControls.Reload.performed += Reload;
+        _input.CharacterControls.Heal.performed += Heal;
+        _input.UI.Pause.performed += Pause;
     }
 
     private void Pause(InputAction.CallbackContext context)
@@ -39,13 +39,13 @@ public class InputHandler : MonoBehaviour, IInput
    
     private void Move()
     {
-        var moveValue = _playerInput.CharacterControls.Movement.ReadValue<Vector2>();
+        var moveValue = _input.CharacterControls.Movement.ReadValue<Vector2>();
         OnPlayerMoved?.Invoke(moveValue);
     }
 
     private void Rotation()
     {
-        var rotationValue = _playerInput.CharacterControls.Aiming.ReadValue<Vector2>();
+        var rotationValue = _input.CharacterControls.Aiming.ReadValue<Vector2>();
         OnPlayerRotated?.Invoke(rotationValue);
     }
 
@@ -80,11 +80,10 @@ public class InputHandler : MonoBehaviour, IInput
 
     private void OnEnable()
     {
-        _playerInput.Enable();
+        _input.Enable();
     }
     private void OnDisable()
     {
-        _playerInput.Disable();
+        _input.Disable();
     }
-
 }

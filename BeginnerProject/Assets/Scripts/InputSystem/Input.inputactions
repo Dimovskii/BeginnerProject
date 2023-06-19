@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "Input",
     "maps": [
         {
             "name": "CharacterControls",
@@ -194,7 +194,7 @@
             ]
         },
         {
-            "name": "UI1",
+            "name": "UI",
             "id": "c152f8fd-1740-4d9b-bcba-c74c9d502e45",
             "actions": [
                 {

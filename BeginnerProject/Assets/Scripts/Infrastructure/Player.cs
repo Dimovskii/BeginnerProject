@@ -5,7 +5,7 @@ namespace Infrastructure
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private InputHandler _input;
+        [SerializeField] private InputWrapper _input;
         [SerializeField] private Shooting _shooting;
         [SerializeField] private WeaponSwitcher _weaponSwitcher;
         [SerializeField] private PlayerHealth _playerHealth;
